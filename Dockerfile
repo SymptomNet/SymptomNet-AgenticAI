@@ -8,13 +8,20 @@ RUN apt-get update && apt-get install -y curl build-essential
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
 
+# Download the latest installer
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+
+# Run the installer then remove it
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+
+# Ensure the installed binary is on the `PATH`
+ENV PATH="/root/.local/bin/:$PATH"
+
 # Set work directory
 WORKDIR /app
 
 # Copy project files
 COPY . .
-
-RUN pip install uv --system
 
 # Install Python dependencies
 RUN uv pip install --no-cache-dir -r requirements.txt
