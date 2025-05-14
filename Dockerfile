@@ -14,7 +14,7 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
-RUN pip install uv
+RUN pip install uv --system
 
 # Install Python dependencies
 RUN uv pip install --no-cache-dir -r requirements.txt
