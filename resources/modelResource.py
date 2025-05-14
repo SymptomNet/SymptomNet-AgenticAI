@@ -2,6 +2,9 @@ from flask_restful import Resource
 from flask import request, jsonify
 from transformers import AutoTokenizer, TFAutoModelForSequenceClassification
 import tensorflow as tf
+import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 # Load the tokenizer and model from TensorFlow weights
 tokenizer = AutoTokenizer.from_pretrained("Zabihin/Symptom_to_Diagnosis")
