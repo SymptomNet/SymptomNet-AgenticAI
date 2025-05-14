@@ -27,7 +27,7 @@ COPY . .
 RUN uv pip install --no-cache-dir -r requirements.txt --system
 
 # Expose the port your app runs on
-EXPOSE 5000
+EXPOSE 80
 
 # Define the command to run your app
 CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:5000"]
