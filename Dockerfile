@@ -14,8 +14,10 @@ WORKDIR /app
 # Copy project files
 COPY . .
 
+RUN pip install uv
+
 # Install Python dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN uv pip install --no-cache-dir -r requirements.txt
 
 # Expose the port your app runs on
 EXPOSE 5000
