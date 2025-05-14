@@ -7,6 +7,9 @@ import tensorflow as tf
 tokenizer = AutoTokenizer.from_pretrained("Zabihin/Symptom_to_Diagnosis")
 model = TFAutoModelForSequenceClassification.from_pretrained("Zabihin/Symptom_to_Diagnosis")
 
+# Set the device to CPU
+tf.config.set_visible_devices([], 'GPU')
+
 class modelsPOSTResource(Resource):
     def post(self):
         message = request.json['Message']
