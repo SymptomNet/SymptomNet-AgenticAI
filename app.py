@@ -3,7 +3,7 @@ from flask import jsonify
 from flask_cors import CORS
 from flask_restful import Api, MethodNotAllowed, NotFound
 from flask_swagger_ui import get_swaggerui_blueprint
-from util.common import domain, port, localhostUrl, build_swagger_config_json
+from util.common import domain, port, build_swagger_config_json
 from resources.swaggerConfig import SwaggerConfig
 from resources.modelResource import modelsPOSTResource
 import dotenv

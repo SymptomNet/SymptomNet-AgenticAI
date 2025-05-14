@@ -11,7 +11,6 @@ class ENVIRONMENT:
         self.domain = os.getenv("DOMAIN")
         self.port = os.getenv("PORT")
         self.prefix = os.getenv("PREFIX")
-        self.localhostUrl = os.getenv("LOCALHOST_URL")
 
     def get_instance(self):
         if not hasattr(self, "_instance"):
@@ -23,14 +22,10 @@ class ENVIRONMENT:
 
     def getPort(self):
         return self.port
-    
-    def getLocalhostUrl(self):
-        return self.localhostUrl
 
 
 domain = ENVIRONMENT().get_instance().getDomain()
 port = ENVIRONMENT().get_instance().getPort()
-localhostUrl = ENVIRONMENT().get_instance().getLocalhostUrl()
 
 
 def build_swagger_config_json():
