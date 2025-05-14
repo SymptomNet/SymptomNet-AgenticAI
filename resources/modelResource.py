@@ -6,27 +6,38 @@ import os
 
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
-# Load the tokenizer and model from TensorFlow weights
+# Load components
 tokenizer = AutoTokenizer.from_pretrained("Zabihin/Symptom_to_Diagnosis")
 model = TFAutoModelForSequenceClassification.from_pretrained("Zabihin/Symptom_to_Diagnosis")
 
 class modelsPOSTResource(Resource):
     def post(self):
         message = request.json['Message']
-        print(message)
-        # Tokenize the input
-        inputs = tokenizer(message, return_tensors="tf")
-    
-        # Get predictions
-        outputs = model(**inputs)
-        logits = outputs.logits
-        probabilities = tf.nn.softmax(logits, axis=1)
+        print(f"Processing: {message}")
+        
+        # Tokenize with guaranteed attention_mask
+        inputs = tokenizer(
+            message,
+            return_tensors="tf",
+            padding="max_length",
+            truncation=True,
+            max_length=512
+        )
+        
+        # Explicitly extract required inputs (ignore other keys like 'token_type_ids')
+        input_ids = inputs["input_ids"]
+        attention_mask = inputs["attention_mask"]  # Must exist due to padding
+        
+        # Pass ONLY the arguments the model expects
+        outputs = model(
+            input_ids=input_ids,
+            attention_mask=attention_mask,
+            output_attentions=False,  # Disable unwanted outputs
+            output_hidden_states=False
+        )
+        
+        probabilities = tf.nn.softmax(outputs.logits, axis=1)
         top_k = tf.math.top_k(probabilities, k=3)
         
-        # Display the top 3 predicted diagnoses
-        res = []
-        for _, (label_id, _) in enumerate(zip(top_k.indices[0].numpy(), top_k.values[0].numpy()), 1):
-            label = model.config.id2label[label_id]
-            res.append(label)
-            
+        res = [model.config.id2label[label_id] for label_id in top_k.indices.numpy()[0]]
         return jsonify({"result": res})
