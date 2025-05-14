@@ -7,9 +7,6 @@
   "servers": [
     {
       "url": "http://localhost:5000"
-    },
-    {
-      "url": "http://localhost:5000"
     }
   ],
   "tags": [
@@ -33,7 +30,7 @@
                 "properties": {
                   "Message": {
                     "type": "string",
-                    "example": "some input string"
+                    "example": "fever, cough, shortness of breath"
                   }
                 }
               }
@@ -49,7 +46,7 @@
                   "type": "object",
                   "properties": {
                     "result": {
-                      "type": "string"
+                      "type": "['allergy', 'common cold', 'gastroesophageal reflux disease']"
                     }
                   }
                 }

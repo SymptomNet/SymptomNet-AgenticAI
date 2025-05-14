@@ -3,9 +3,11 @@ from flask import jsonify
 from flask_cors import CORS
 from flask_restful import Api, MethodNotAllowed, NotFound
 from flask_swagger_ui import get_swaggerui_blueprint
-from util.common import domain, port, prefix, build_swagger_config_json
+from util.common import domain, port, localhostUrl, build_swagger_config_json
 from resources.swaggerConfig import SwaggerConfig
 from resources.modelResource import modelsPOSTResource
+import dotenv
+import os
 
 # ============================================
 # Main
@@ -14,15 +16,15 @@ application = Flask(__name__)
 app = application
 app.config['PROPAGATE_EXCEPTIONS'] = True
 CORS(app, resources={r"/*": {"origins": "*"}})
-api = Api(app, prefix=prefix, catch_all_404s=True)
+api = Api(app, catch_all_404s=True)
 
 # ============================================
 # Swagger
 # ============================================
 build_swagger_config_json()
 swaggerui_blueprint = get_swaggerui_blueprint(
-    prefix,
-    f'https://{domain}{prefix}/swagger-config',
+    "",
+    f'http://{domain}:{port}/swagger-config',
     config={
         'app_name': "Flask API",
         "layout": "BaseLayout",
@@ -48,10 +50,10 @@ def handle_method_not_allowed_error(e):
     response.status_code = 405
     return response
 
-@app.route('/')
-def redirect_to_prefix():
-    if prefix != '':
-        return redirect(prefix)
+# @app.route('/')
+# def redirect_to_prefix():
+#     if prefix != '':
+#         return redirect(prefix)
 
 # ============================================
 # Add Resource

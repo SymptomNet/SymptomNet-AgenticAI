@@ -1,8 +1,7 @@
 transformers
 datasets
-torch
-spacy
-openai
+tensorflow
+tf-keras
 requests
 Flask==3.1.0
 Flask-Cors
