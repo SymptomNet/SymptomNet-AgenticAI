@@ -1,6 +1,6 @@
-transformers
+transformers[tf-cpu]
 datasets
-tensorflow
+tensorflow-cpu
 tf-keras
 requests
 Flask==3.1.0
