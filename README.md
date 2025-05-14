@@ -9,3 +9,6 @@
 `python --app app run` to run locally
 
 It will auto redirect to the swagger page where you can test out the API. Schema everything is here too.
+
+## Author
+Chee Min Hao
