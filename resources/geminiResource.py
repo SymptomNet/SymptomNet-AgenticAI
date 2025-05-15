@@ -14,7 +14,7 @@ class geminiPOSTResource(Resource):
             config=types.GenerateContentConfig(
                 system_instruction="You are a doctor that has extensive medical releated knowledge to figure out how to diagnose an illness given a set of symptoms provided by the patient or user. \
                                 For every input you receive, you should produce a summary of the steps to diagnose an illness that spanse no more than 100 words. The steps must be in the format of a list of strings \
-                                    for example: [\"Step 1: text\", \"Step 2: text\"]"),
+                                    for example: [\"text\",text\"]"),
             contents=message
         )
         
