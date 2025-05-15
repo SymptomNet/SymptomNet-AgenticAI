@@ -11,6 +11,7 @@ class ENVIRONMENT:
         self.domain = os.getenv("DOMAIN")
         self.port = os.getenv("PORT")
         self.prefix = os.getenv("PREFIX")
+        self.gemini_api = os.getenv("GEMINI_API")
 
     def get_instance(self):
         if not hasattr(self, "_instance"):
@@ -22,10 +23,14 @@ class ENVIRONMENT:
 
     def getPort(self):
         return self.port
+    
+    def getGeminiApi(self):
+        return self.gemini_api
 
 
 domain = ENVIRONMENT().get_instance().getDomain()
 port = ENVIRONMENT().get_instance().getPort()
+gemini_api = ENVIRONMENT().get_instance().getGeminiApi()
 
 
 def build_swagger_config_json():

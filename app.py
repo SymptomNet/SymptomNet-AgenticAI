@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect
+from flask import Flask, jsonify
 from flask import jsonify
 from flask_cors import CORS
 from flask_restful import Api, MethodNotAllowed, NotFound
@@ -6,8 +6,7 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from util.common import domain, port, build_swagger_config_json
 from resources.swaggerConfig import SwaggerConfig
 from resources.modelResource import modelsPOSTResource
-import dotenv
-import os
+from resources.geminiResource import geminiPOSTResource
 
 # ============================================
 # Main
@@ -60,8 +59,10 @@ def handle_method_not_allowed_error(e):
 # ============================================
 # GET swagger config
 api.add_resource(SwaggerConfig, '/swagger-config')
-# GET books
+
+# POST methods
 api.add_resource(modelsPOSTResource, '/predict')
+api.add_resource(geminiPOSTResource, '/gemini-predict')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port="5000", debug=True)

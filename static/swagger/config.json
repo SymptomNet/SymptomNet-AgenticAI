@@ -21,7 +21,7 @@
         "tags": [
           "model"
         ],
-        "summary": "Model Predict on Loan Approval",
+        "summary": "Model Predict 3 Likiest Diagnostic Given a Set of Symptoms",
         "requestBody": {
           "content": {
             "application/json": {
@@ -49,6 +49,41 @@
                       "type": "['allergy', 'common cold', 'gastroesophageal reflux disease']"
                     }
                   }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gemini-predict": {
+      "post": {
+        "tags": [
+          "model"
+        ],
+        "summary": "Gemini Provides Diagnostic Steps",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Message": {
+                    "type": "string",
+                    "example": "How should I diagnose a common rash?"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Gemini Generates String Output",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
                 }
               }
             }
